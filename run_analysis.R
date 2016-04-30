@@ -15,13 +15,13 @@ subject <- rbind(train.subject,test.subject)
 
 #Extracts only the measurements on the mean and standard deviation for each measurement.
 features <- read.table("./Dataset/features.txt")
-mean_st <- grep(".*-mean.*|.*-std.*",features[,2])
+mean_st <- grep("(.*)-mean(.*)|(.*)-std(.*)",features[,2])
 x.mean.st <- x[,mean_st]
 
 #Uses descriptive activity names to name the activities in the data set
-names(x) <- features[mean_st,2] 
-names(x) <- gsub("-"," ",names(x))
-names(x) <- gsub("\\()","",names(x))
+names(x.mean.st) <- features[mean_st,2] 
+names(x.mean.st) <- gsub("-"," ",names(x.mean.st))
+names(x.mean.st) <- gsub("\\()","",names(x.mean.st))
 
 
 names(y) <- c("activity")
@@ -34,13 +34,13 @@ for (i in 1:nrow(y)){
 
 
 #Appropriately labels the data set with descriptive variable names.
-data <- cbind(subject,y,x)
-write.table(data, './data/mergeddata.txt', row.names = T)
+data <- cbind(subject,y,x.mean.st)
+write.table(data, './dataset_created/mergeddata.txt', row.names = F)
 
 
 #From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 library(dplyr)
-data2 <- data %>%
-         group_by(subject,activity) %>%
+data2 <- data %>% group_by(subject,activity) %>%
                 summarise_each(funs(mean))
-write.table(data2, './data/tidydata2.txt', row.names = T)
+
+write.table(data2, './dataset_created/tidydata2.txt', row.names = F)

@@ -18,7 +18,7 @@ You should create one R script called *`run_analysis.R`* that does the following
  - *`rbind()`* to combine the dataset  
  
 2. Extracts only the measurements on the mean and standard deviation for each measurement.
- - *`grep(.*-mean.*|.*-std.*,features[,2])`* to find all the columns whose name contains a substring <b>*-mean*</b> or <b>*-std*</b>
+ - `*grep(.*-mean.*|.*-std.*,features[,2])*` to find all the columns whose name contains a substring <b>*-mean*</b> or <b>*-std*</b>
  
 3. Uses descriptive activity names to name the activities in the data set
  - *`gsub()`* to replace all the chars or strings that apply
